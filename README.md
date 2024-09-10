@@ -7,7 +7,8 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-<b> cara penggunaannya </b>
+<b> CARA PENGUNAAN </b>
 <P> Buat database dengan nama "absensi" </P>
 <p> Php Artisan migrate </p>
-<p> ntuk absen, buat terlebih dahulu data user/karyawan </p>
+<p> untuk absen, buat terlebih dahulu data user/karyawan </p>
+
