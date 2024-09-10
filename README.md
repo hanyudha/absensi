@@ -7,9 +7,12 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-<b>* CARA PENGUNAAN </b>
+<b>* Cara Instalasi </b>
 <P> Jalankan perintah <code> cp .env.example .env</code></P>
 <P> Buat database dengan nama "absensi" </P>
 <p> jalan kan perintah <code> php artisan migrate </code> </p>
+<p>
+    <p>
+<p> Anda memasukan data-data semuanya </p>
 <p> untuk absen, buat terlebih dahulu data user/karyawan </p>
 
