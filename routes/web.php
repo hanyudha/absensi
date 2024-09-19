@@ -48,14 +48,34 @@ Route::get('/user/dashboard', [UserDashboardController::class, 'index'])->name('
 //gaji
 Route::resource('gajis', GajiController::class);
 
-//absensi
-Route::middleware('auth','user')->group(function () {
-Route::get('/absensi', [AbsensiController::class, 'index'])->name('absensi.index');
-Route::post('/absensi/masuk', [AbsensiController::class, 'absenMasuk'])->name('absensi.masuk');
-Route::post('/absensi/keluar/{id}', [AbsensiController::class, 'absenKeluar'])->name('absensi.keluar');
+// Rute untuk pengguna umum
+Route::middleware(['auth', 'user'])->group(function () {
+    Route::get('/absensi', [AbsensiController::class, 'index'])->name('absensi.index');
+    Route::post('/absensi/masuk', [AbsensiController::class, 'absenMasuk'])->name('absensi.masuk');
+    Route::post('/absensi/keluar/{id}', [AbsensiController::class, 'absenKeluar'])->name('absensi.keluar');
 });
-Route::middleware(['auth', 'admin'])->group(function() {
+
+// Rute untuk admin
+Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/laporan', [LaporanAbsensiController::class, 'index'])->name('absensi.laporan');
-    Route::get('/laporan/download', [LaporanAbsensiController::class, 'exportPdf'])->name('absensi.laporan.pdf');
+    Route::get('/laporan/download', [LaporanAbsensiController::class, 'downloadPDF'])->name('absensi.laporan.pdf');
 });
+use App\Http\Controllers\CutiController;
+
+// Route untuk pengajuan cuti
+Route::middleware(['auth', 'user'])->group(function () {
+    Route::get('/cuti', [CutiController::class, 'userIndex'])->name('cuti.index');
+    Route::get('/cuti/create', [CutiController::class, 'create'])->name('cuti.create');
+    Route::post('/cuti', [CutiController::class, 'store'])->name('cuti.store');
+});
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin/cuti', [CutiController::class, 'index'])->name('admin.cuti.index');
+    Route::put('/admin/cuti/{id}/{status}', [CutiController::class, 'updateStatus'])->name('admin.cuti.updateStatus');
+    Route::get('/admin/cuti/{id}', [CutiController::class, 'show'])->name('admin.cuti.show');
+
+});
+
+
+
+
 

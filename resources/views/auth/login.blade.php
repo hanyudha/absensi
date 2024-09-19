@@ -21,8 +21,7 @@
             <div class="card mb-0">
               <div class="card-body">
                 <a href="" class="text-nowrap logo-img text-center d-block py-3 w-100">
-                  <img src="../asset/images/logos/uin.jpg" width="180" alt="Logo">
-                  <!-- <span>Modernize</span> --> <!-- Ini bisa dihapus jika ada elemen teks -->
+                  <img src="{{ asset('asset/images/logos/pustipanda.png') }}" width="180" alt="Logo">
                 </a>
 
                 <p class="text-center">

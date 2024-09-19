@@ -1,16 +1,26 @@
 <?php
+
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Cuti;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class CutiController extends Controller
 {
+    public function userIndex()
+    {
+        // Ambil data cuti untuk user yang sedang login berdasarkan UserID
+        $cutis = Cuti::where('UserID', auth()->user()->UserID)->get();
+        return view('cuti.index', compact('cutis'));
+    }
+    
+
     // Tampilkan form pengajuan cuti untuk user
     public function create()
     {
-        return view('user.cuti.create');
+        return view('cuti.create');
     }
 
     // Simpan pengajuan cuti oleh user
@@ -27,26 +37,53 @@ class CutiController extends Controller
             'alasan' => $request->alasan,
             'tanggal_mulai' => $request->tanggal_mulai,
             'tanggal_selesai' => $request->tanggal_selesai,
+            'status' => 'pending', // Set default status
         ]);
 
         return redirect()->route('cuti.index')->with('success', 'Pengajuan cuti berhasil dikirim.');
     }
 
     // Tampilkan daftar pengajuan cuti untuk admin
-    public function index()
+    public function index(Request $request)
     {
-        $cutis = Cuti::with('user')->get();
-        return view('admin.cuti.index', compact('cutis'));
-    }
 
-    // Admin mengubah status cuti
+    // Ambil nilai pencarian dari request
+    $search = $request->input('search');
+
+    // Query untuk mengambil semua data cuti beserta user-nya
+    $cutis = Cuti::with('user')
+                ->when($search, function ($query, $search) {
+                    return $query->whereHas('user', function ($query) use ($search) {
+                        $query->where('name', 'like', '%' . $search . '%');
+                    });
+                })
+                ->get();
+
+    // Return view ke admin.cuti.index dengan data cuti
+    return view('admin.cuti.index', compact('cutis'));
+}
+    
     public function updateStatus($id, $status)
     {
+        // Ambil data cuti berdasarkan ID
         $cuti = Cuti::findOrFail($id);
-        $cuti->status = $status;
+        
+        // Update status cuti dengan nilai string yang dibungkus tanda kutip
+        $cuti->status = $status; // Misalnya $status bisa 'disetujui', 'ditolak', 'pending'
         $cuti->save();
 
-        return redirect()->route('admin.cuti.index')->with('success', 'Status cuti berhasil diperbarui.');
+        // Redirect kembali dengan pesan sukses
+        return redirect()->route('admin.cuti.index')->with('success', 'Status cuti berhasil diupdate.');
     }
+    
+public function show($id)
+{
+    // Ambil data cuti berdasarkan ID
+    $cuti = Cuti::findOrFail($id);
+
+    // Return view dengan data cuti
+    return view('admin.cuti.show', compact('cuti'));
 }
 
+    
+}

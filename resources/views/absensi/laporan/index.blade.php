@@ -35,7 +35,7 @@
         padding: 8px;
         font-size: 14px; /* Ukuran font lebih kecil */
         border-radius: 5px;
-        border: 1px solid #007bff;
+        border: 1px solid #5D87FF;
         width: 200px; /* Lebar input yang lebih kecil */
     }
 

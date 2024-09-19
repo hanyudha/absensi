@@ -33,30 +33,31 @@
             <nav id="navmenu" class="navmenu">
     <ul>
     @if (Route::has('login'))
-        @auth
+    @auth
         <li>
-    @if(Auth::user()->role_as == 'admin')
-        <a href="{{ url('/admin/dashboard') }}" 
-           class="btn btn-primary d-flex align-items-center justify-content-center" 
-           style="padding: 5px 10px; background-color: #F0F8FF;">
-           Home
-        </a>
-    @else
-        <a href="{{ url('/user/dashboard') }}" 
-           class="btn btn-primary d-flex align-items-center justify-content-center" 
-           style="padding: 5px 10px; background-color: #F0F8FF;">
-           Home
-        </a>
-    @endif
-</li>
-    @else
-        <li><a href="{{ route('login') }}" class="btn btn-primary class d-flex align-items-center justify-content-center" 
-            style="padding: 5px 10px;">Log in</a></li>
-            @if (Route::has('register'))
-        <li><a href="{{ route('register') }}" class="btn btn-secondary">Register</a></li>
+            @if(Auth::user()->role_as == 'admin')
+                <a href="{{ url('/admin/dashboard') }}" 
+                   class="btn btn-primary d-flex align-items-center justify-content-center" 
+                   style="padding: 5px 10px; background-color: #F0F8FF;">
+                   Home
+                </a>
+            @else
+                <a href="{{ url('/user/dashboard') }}" 
+                   class="btn btn-primary d-flex align-items-center justify-content-center" 
+                   style="padding: 5px 10px; background-color: #F0F8FF;">
+                   Home
+                </a>
             @endif
-            @endauth
-        @endif
+        </li>
+    @else
+        <!-- Tombol Login dengan background putih dan teks hitam -->
+        <a href="{{ route('login') }}" 
+           class="btn btn-light d-flex align-items-center justify-content-center" 
+           style="background-color: #5D87FF; color: white; border: 1px solid #ccc; padding: 5px 10px;">
+           Login
+        </a>
+    @endauth
+@endif
     </ul>
     <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
 </nav>

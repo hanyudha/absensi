@@ -37,7 +37,20 @@
                                     <span class="hide-menu">Absensi</span>
                                 </a>
                             </li>
-                            
+                            <li class="sidebar-item">
+                        <a class="sidebar-link" href="{{ route('cuti.index') }}" aria-expanded="false">
+                            <span><i class="ti ti-file-description"></i></span>
+                            <span class="hide-menu">Pengajuan Cuti</span>
+                        </a>
+                    </li>
+                            <li class="sidebar-item">
+        <a class="sidebar-link" href="{{ route('cuti.create') }}" aria-expanded="false">
+            <span>
+                <i class="ti ti-calendar"></i>
+            </span>
+            <span class="hide-menu">Permohonan Cuti</span>
+        </a>
+    </li>
 </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
