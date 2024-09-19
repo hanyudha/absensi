@@ -49,14 +49,13 @@ Route::get('/user/dashboard', [UserDashboardController::class, 'index'])->name('
 Route::resource('gajis', GajiController::class);
 
 //absensi
-Route::middleware('auth')->group(function () {
+Route::middleware('auth','user')->group(function () {
 Route::get('/absensi', [AbsensiController::class, 'index'])->name('absensi.index');
 Route::post('/absensi/masuk', [AbsensiController::class, 'absenMasuk'])->name('absensi.masuk');
 Route::post('/absensi/keluar/{id}', [AbsensiController::class, 'absenKeluar'])->name('absensi.keluar');
 });
-// Laporan Absensi
-Route::middleware('auth', 'admin')->group(function () {
-    Route::get('/absensi/laporan', [AbsensiController::class, 'laporanAbsensi'])->name('absensi.laporan');
-    Route::get('/absensi/laporan/pdf', [AbsensiController::class, 'downloadPDF'])->name('absensi.laporan.pdf');
+Route::middleware(['auth', 'admin'])->group(function() {
+    Route::get('/laporan', [LaporanAbsensiController::class, 'index'])->name('absensi.laporan');
+    Route::get('/laporan/download', [LaporanAbsensiController::class, 'exportPdf'])->name('absensi.laporan.pdf');
 });
 

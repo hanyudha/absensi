@@ -9,47 +9,43 @@ use PDF;
 
 class LaporanAbsensiController extends Controller
 {
+    // Fungsi untuk menampilkan laporan berdasarkan tanggal tertentu
     public function index(Request $request)
     {
-        // Pastikan pengguna sudah login
-        if (!auth()->check()) {
-            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
+        $tanggal = $request->input('tanggal'); // Ambil input tanggal dari form
+
+        // Pastikan tanggal tidak kosong
+        if ($tanggal) {
+            // Ambil data absensi pada tanggal tersebut
+            $absensi = Absensi::whereDate('Tanggal', $tanggal)
+                ->orderBy('Tanggal', 'desc')
+                ->get();
+        } else {
+            // Tampilkan semua data jika tanggal tidak dipilih
+            $absensi = Absensi::orderBy('Tanggal', 'desc')->get();
         }
 
-        // Ambil ID user yang sedang login
-        $userID = auth()->user()->UserID;
-
-        // Ambil tanggal mulai dan tanggal akhir dari request, jika ada
-        $startDate = $request->input('start_date', Carbon::now()->startOfMonth()->toDateString());
-        $endDate = $request->input('end_date', Carbon::now()->endOfMonth()->toDateString());
-
-        // Ambil data absensi dalam rentang tanggal
-        $absensi = Absensi::where('UserID', $userID)
-            ->whereBetween('Tanggal', [$startDate, $endDate])
-            ->orderBy('Tanggal', 'desc')
-            ->get();
-
-        // Kirim data ke view laporan
-        return view('laporan.index', compact('absensi', 'startDate', 'endDate'));
+        // Mengarahkan ke views/absensi/laporan/index.blade.php
+        return view('absensi.laporan.index', compact('absensi'));
     }
 
+    // Fungsi untuk download PDF berdasarkan tanggal
     public function exportPdf(Request $request)
     {
-        // Pastikan pengguna sudah login
-        if (!auth()->check()) {
-            return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
+        $tanggal = $request->input('tanggal');
+
+        if ($tanggal) {
+            // Ambil data absensi pada tanggal tersebut
+            $absensi = Absensi::whereDate('Tanggal', $tanggal)
+                ->orderBy('Tanggal', 'desc')
+                ->get();
+        } else {
+            // Jika tanggal tidak dipilih, tampilkan semua data
+            $absensi = Absensi::orderBy('Tanggal', 'desc')->get();
         }
 
-        $userID = auth()->user()->UserID;
-        $startDate = $request->input('start_date', Carbon::now()->startOfMonth()->toDateString());
-        $endDate = $request->input('end_date', Carbon::now()->endOfMonth()->toDateString());
-
-        $absensi = Absensi::where('UserID', $userID)
-            ->whereBetween('Tanggal', [$startDate, $endDate])
-            ->orderBy('Tanggal', 'desc')
-            ->get();
-
-        $pdf = PDF::loadView('laporan.pdf', compact('absensi', 'startDate', 'endDate'));
-        return $pdf->download('laporan_absensi.pdf');
+        // Mengarahkan ke views/absensi/laporan/pdf.blade.php
+        $pdf = PDF::loadView('absensi.laporan.pdf', compact('absensi'));
+        return $pdf->download('laporan_absensi_' . $tanggal . '.pdf');
     }
 }
