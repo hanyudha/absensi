@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\User;
 use App\Models\Cuti;
 use Illuminate\Http\Request;
@@ -32,7 +31,9 @@ class CutiController extends Controller
             'tanggal_selesai' => 'required|date|after_or_equal:tanggal_mulai',
         ]);
 
-        Cuti::create([
+        
+        // Di dalam fungsi store()
+        $cuti = Cuti::create([
             'UserID' => Auth::id(),
             'alasan' => $request->alasan,
             'tanggal_mulai' => $request->tanggal_mulai,
@@ -40,7 +41,7 @@ class CutiController extends Controller
             'status' => 'pending', // Set default status
         ]);
 
-        return redirect()->route('cuti.index')->with('success', 'Pengajuan cuti berhasil dikirim.');
+return redirect()->route('cuti.index')->with('success', 'Pengajuan cuti berhasil dikirim.');  
     }
 
     // Tampilkan daftar pengajuan cuti untuk admin
@@ -63,27 +64,24 @@ class CutiController extends Controller
     return view('admin.cuti.index', compact('cutis'));
 }
     
-    public function updateStatus($id, $status)
-    {
-        // Ambil data cuti berdasarkan ID
-        $cuti = Cuti::findOrFail($id);
-        
-        // Update status cuti dengan nilai string yang dibungkus tanda kutip
-        $cuti->status = $status; // Misalnya $status bisa 'disetujui', 'ditolak', 'pending'
-        $cuti->save();
+public function updateStatus($id, $status)
+{
+    // Ambil data cuti berdasarkan ID
+    $cuti = Cuti::findOrFail($id);
+    // Update status cuti
+    $cuti->status = $status;
+    $cuti->save();
+     return redirect()->route('admin.cuti.index')->with('success', 'Status cuti berhasil diubah.');
+ }
 
-        // Redirect kembali dengan pesan sukses
-        return redirect()->route('admin.cuti.index')->with('success', 'Status cuti berhasil diupdate.');
-    }
-    
-public function show($id)
+
+    public function show($id)
 {
     // Ambil data cuti berdasarkan ID
     $cuti = Cuti::findOrFail($id);
 
-    // Return view dengan data cuti
+
     return view('admin.cuti.show', compact('cuti'));
 }
 
-    
 }

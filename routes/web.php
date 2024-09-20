@@ -10,6 +10,7 @@ use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\GajiController;
 use App\Http\Controllers\AdminLogController;
 use App\Http\Controllers\LaporanAbsensiController;
+use App\Http\Controllers\NotificationController;
 
 
 /*
@@ -34,17 +35,21 @@ Route::resource('departemens', DepartemenController::class);
 //jabatan
 Route::resource('jabatans', JabatanController::class);
 
-//karyawan
+Route::middleware(['auth'])->group(function () {
+
 Route::resource('users', UserController::class);
 Route::get('users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
-
-//admin user
-Route::group(['middleware' => 'auth'], function () {
-Route::get('/admin/dashboard', [AdminDashboardController::class, 'index']);
 });
-Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
-Route::get('/user/dashboard', [UserDashboardController::class, 'index'])->name('user.dashboard');
+//admin user
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin/dashboard', [AdminDashboardController::class, 'index']);
 
+Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+});
+Route::middleware(['auth', 'user'])->group(function () {
+
+Route::get('/user/dashboard', [UserDashboardController::class, 'index'])->name('user.dashboard');
+});
 //gaji
 Route::resource('gajis', GajiController::class);
 
@@ -74,7 +79,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/cuti/{id}', [CutiController::class, 'show'])->name('admin.cuti.show');
 
 });
-
 
 
 
