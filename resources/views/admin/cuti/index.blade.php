@@ -17,7 +17,7 @@
     .form-search {
         margin-bottom: 20px;
         display: flex;
-        justify-content: flex-start; 
+        justify-content: flex-start;
     }
 
     .form-search input[type="text"] {
@@ -170,18 +170,18 @@
                 <td>{{ $cuti->alasan }}</td>
                 <td>
                     @if($cuti->status == 'pending')
-                        <form action="{{ route('admin.cuti.updateStatus', ['id' => $cuti->CutiID, 'status' => 'approved']) }}" method="POST" style="display:inline;">
+                        <form action="{{ route('admin.cuti.updateStatus', ['id' => $cuti->id, 'status' => 'approved']) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('PUT')
                             <button type="submit" class="btn btn-custom-success">Setujui</button>
                         </form>
-                        <form action="{{ route('admin.cuti.updateStatus', ['id' => $cuti->CutiID, 'status' => 'rejected']) }}" method="POST" style="display:inline;">
+                        <form action="{{ route('admin.cuti.updateStatus', ['id' => $cuti->id, 'status' => 'rejected']) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('PUT')
                             <button type="submit" class="btn btn-danger">Tolak</button>
                         </form>
                     @else
-                        <a href="{{ route('admin.cuti.show', ['id' => $cuti->CutiID]) }}" class="btn btn-info">Detail</a>
+                        <a href="{{ route('admin.cuti.show', ['id' => $cuti->id]) }}" class="btn btn-info">Detail</a>
                     @endif
                 </td>
             </tr>

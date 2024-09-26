@@ -67,7 +67,7 @@ CREATE TABLE `cutis` (
 -- Dumping data for table `cutis`
 --
 
-INSERT INTO `cutis` (`CutiID`, `UserID`, `tanggal_mulai`, `tanggal_selesai`, `alasan`, `status`, `created_at`, `updated_at`) VALUES
+INSERT INTO `cutis` (`id`, `UserID`, `tanggal_mulai`, `tanggal_selesai`, `alasan`, `status`, `created_at`, `updated_at`) VALUES
 (1, 2, '2024-09-16', '2024-09-26', 'males', 'approved', '2024-09-19 09:52:17', '2024-09-19 13:49:41'),
 (2, 2, '2024-09-16', '2024-09-26', 'males', 'rejected', '2024-09-19 09:56:01', '2024-09-19 13:49:58'),
 (3, 2, '2024-09-12', '2024-09-26', 'dinas keluar kota', 'approved', '2024-09-19 14:42:40', '2024-09-19 14:44:03'),

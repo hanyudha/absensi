@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Cuti extends Model
 {
     use HasFactory;
-    protected $primaryKey = 'CutiID';
+    protected $primaryKey = 'id';
     protected $fillable = [
         'UserID', 'tanggal_mulai', 'tanggal_selesai',  'alasan','status'
     ];
