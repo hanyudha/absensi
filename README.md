@@ -15,5 +15,12 @@
     <p>
 <p> Anda memasukan data-data semuanya </p>
 <p> untuk absen, buat terlebih dahulu data user/karyawan </p>
-<P> password login user dan admin <code>12345678</code></P>
 
+###
+Role Admin
+User: admin@gmail.com
+Password: 12345678
+
+Role Staff
+user:alena12@gmail.com
+Password: 12345678
