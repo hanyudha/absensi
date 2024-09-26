@@ -273,10 +273,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`UserID`, `name`, `email`, `email_verified_at`, `password`, `JabatanID`, `Tanggal_Lahir`, `Jenis_Kelamin`, `No_Telp`, `Alamat`, `Tanggal_Bergabung`, `Status`, `role_as`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Desta Siti Amalia', 'admin@gmail.com', NULL, '$2y$10$nbBUUB3ki.bxhiaVqUef4.eqJTGHdtAvy.8pdLtgEbOamMm8DsvXC', 1, '2024-09-03', 'Perempuan', '085781403979', 'sawangan', '2024-09-19', 'Aktif', 'admin', NULL, '2024-09-19 08:16:40', '2024-09-19 08:16:40'),
-(2, 'Meilany Herlita Putri', 'mela@gmail.com', NULL, '$2y$10$HyYNMRKksCs6U6X0CEyp0.lEUqwRuUyJMHvJw83xKjI2xsPrIRYSe', 1, '2024-09-27', 'Perempuan', '0857814039735', 'sawangan', '2024-09-19', 'Aktif', 'user', NULL, '2024-09-19 08:17:20', '2024-09-19 08:17:20'),
-(3, 'Desta Siti', 'admin@example.com', NULL, '$2y$10$aJglkgITuhbp1Ey248ZnXO0s4MHISPpQX43NJycWRn1Wx2O6GFEke', 1, '2024-10-12', 'Perempuan', '0864646445', 'sawangan', '2024-09-19', 'Aktif', 'admin', NULL, '2024-09-19 08:26:11', '2024-09-19 08:26:11'),
-(4, 'Alena Alfiana', 'alena12@gmail.com', NULL, '$2y$10$.vS53xTgRS2IKdzOPGyFmubzGO.7tFNhiKILwyHkbDTlRFmP1oq/S', 1, '2024-09-25', 'Laki-laki', '085781403979', 'sawangan', '2024-09-19', 'Aktif', 'user', NULL, '2024-09-19 15:46:24', '2024-09-19 15:46:24');
+(1, 'Desta Siti Amalia', 'admin@gmail.com', NULL, '$2y$10$K/HRVeonByGCaFkZiV1JIuLcwfJW9Su1w5zS.qqqPYDOsuluYTmre', 1, '2024-09-03', 'Perempuan', '085781403979', 'sawangan', '2024-09-19', 'Aktif', 'admin', NULL, '2024-09-19 08:16:40', '2024-09-19 08:16:40'),
+(2, 'Meilany Herlita Putri', 'mela@gmail.com', NULL, '$2y$10$K/HRVeonByGCaFkZiV1JIuLcwfJW9Su1w5zS.qqqPYDOsuluYTmre', 1, '2024-09-27', 'Perempuan', '0857814039735', 'sawangan', '2024-09-19', 'Aktif', 'user', NULL, '2024-09-19 08:17:20', '2024-09-19 08:17:20'),
+(3, 'Desta Siti', 'admin@example.com', NULL, '$2y$10$K/HRVeonByGCaFkZiV1JIuLcwfJW9Su1w5zS.qqqPYDOsuluYTmre', 1, '2024-10-12', 'Perempuan', '0864646445', 'sawangan', '2024-09-19', 'Aktif', 'admin', NULL, '2024-09-19 08:26:11', '2024-09-19 08:26:11'),
+(4, 'Alena Alfiana', 'alena12@gmail.com', NULL, '$2y$10$K/HRVeonByGCaFkZiV1JIuLcwfJW9Su1w5zS.qqqPYDOsuluYTmre', 1, '2024-09-25', 'Laki-laki', '085781403979', 'sawangan', '2024-09-19', 'Aktif', 'user', NULL, '2024-09-19 15:46:24', '2024-09-19 15:46:24');
 
 --
 -- Indexes for dumped tables

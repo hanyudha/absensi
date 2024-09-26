@@ -15,6 +15,11 @@ class CreateCutisTable extends Migration
     {
         Schema::create('cutis', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('UserID');
+            $table->date('tanggal_mulai');
+            $table->date('tanggal_selesai');
+            $table->string('alasan')->nullable();
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }

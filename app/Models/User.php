@@ -36,8 +36,12 @@ class User extends Authenticatable
         'Tanggal_Bergabung' => 'date',
         'email_verified_at' => 'datetime',
     ];
-    
-   
+
+    public static function newModelInstance(array $array)
+    {
+    }
+
+
     public function jabatan()
     {
         return $this->belongsTo(Jabatans::class, 'JabatanID', 'JabatanID' );
