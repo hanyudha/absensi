@@ -12,7 +12,7 @@ class DepartemenController extends Controller
         $query = Departemens::query();
         if ($search) {
         $query->where('NamaDepartemen', 'like', '%' . $search . '%');            }
-        $departemens = $query->paginate(5); //paginate with 10 items per page
+        $departemens =Departemens::orderBy('created_at', 'desc')->paginate(10); 
         return view('departemens.index', compact('departemens'));
     }
                    

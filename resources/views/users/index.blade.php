@@ -7,12 +7,12 @@
     @endif
 
     <div class="mb-3">
-        <a href="{{ route('users.create') }}" class="btn btn-primary">Buat Data User</a>
+        <a href="{{ route('users.create') }}" class="btn btn-primary">Buat Data Karyawan</a>
     </div>
 
     <form action="{{ route('users.index') }}" method="GET">
         <div class="input-group mb-3">
-            <input type="text" name="search" class="form-control" placeholder="Cari Data User" value="{{ request()->query('search') }}">
+            <input type="text" name="search" class="form-control" placeholder="Cari Data Karyawan" value="{{ request()->query('search') }}">
             <div class="input-group-append">
                 <button type="submit" class="btn btn-primary">Cari</button>
             </div>
@@ -74,10 +74,14 @@
                 @endforelse
             </tbody>
         </table>
-        {{ $users->links() }}
     </div>
 </div>
-
+<div class="mt-3 d-flex justify-content-between align-items-center">
+            <div>
+                {{ $users->links('pagination::bootstrap-4') }} <!-- Memastikan pagination menggunakan Bootstrap -->
+            </div>
+            <p class="mt-2">Menampilkan {{ $users->count() }} dari {{ $users->total() }} data Karyawan.</p>
+        </div>
 <style>
     thead th {
         background-color: rgba(0, 123, 255, 0.5); /* Biru transparan */

@@ -189,4 +189,10 @@
         </tbody>
     </table>
 </div>
+<div class="mt-3 d-flex justify-content-between align-items-center">
+        <div>
+            {{ $cutis->links('pagination::bootstrap-4') }} <!-- Memastikan pagination menggunakan Bootstrap -->
+        </div>
+        <p class="mt-2">Menampilkan {{ $cutis->count() }} dari {{ $cutis->total() }} data Pengajuan Cuti.</p>
+    </div>
 @endsection

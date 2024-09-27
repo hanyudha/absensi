@@ -16,7 +16,7 @@ class GajiController extends Controller
             ->when($search, function($query) use ($search) {
                 return $query->where('users.name', 'like', '%' . $search . '%'); // Cari berdasarkan nama pengguna
             })
-            ->paginate(10); // Paginate hasil
+            ->orderBy('created_at', 'desc')->paginate(10);
 
         return view('gajis.index', compact('gajis', 'search'));
     }
