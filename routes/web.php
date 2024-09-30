@@ -29,14 +29,14 @@ Route::get('/', function () {
 });
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-//departemen
-Route::resource('departemens', DepartemenController::class);
+Route::middleware(['auth'])->group(function () {
+    Route::resource('departemens', DepartemenController::class);
+});
 
 //jabatan
 Route::resource('jabatans', JabatanController::class);
 
 Route::middleware(['auth'])->group(function () {
-
 Route::resource('users', UserController::class);
 Route::get('users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
 });
@@ -80,6 +80,32 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
 });
 
+//route notifikasi user
+Route::get('/notifications/mark-as-read/{id}', function ($id) {
+    $notification = auth()->user()->notifications()->find($id);
+    if ($notification) {
+        $notification->markAsRead();
+        return redirect()->route('cuti.index');}
+        return redirect()->back();
+})->name('notifications.markAsRead')->middleware('auth');
+// Route untuk menandai semua notifikasi sebagai sudah dibaca
+Route::get('/notifications/mark-all-read', function () {
+    auth()->user()->unreadNotifications->markAsRead();
+    return redirect()->back();
+})->name('user.markAllRead')->middleware('auth');
 
-
-
+// Route untuk menandai notifikasi spesifik sebagai dibaca untuk admin
+Route::get('/admin/notifications/mark-as-read/{id}', function ($id) {
+    $notification = auth()->user()->notifications()->find($id);
+    
+    if ($notification) {
+        // Tandai notifikasi sebagai sudah dibaca
+        $notification->markAsRead();
+        // Arahkan ke halaman admin cuti index setelah notifikasi diklik
+        return redirect()->route('admin.cuti.index');}
+    return redirect()->back();
+})->name('admin.notifications.markAsRead')->middleware('auth');
+Route::get('/admin/notifications/mark-all-read', function () {
+    auth()->user()->unreadNotifications->markAsRead();
+    return redirect()->back();
+})->name('admin.markAllRead')->middleware('auth');

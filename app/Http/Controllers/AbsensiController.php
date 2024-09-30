@@ -55,7 +55,7 @@ class AbsensiController extends Controller
 
             $absensi->save(); // Simpan data absensi
 
-            return redirect()->back()->with('success', 'Anda telah berhasil melakukan absen masuk!');
+            return redirect()->back()->with('success');
         }
 
         return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');
@@ -90,7 +90,7 @@ class AbsensiController extends Controller
             $absensi->WaktuKeluar = $waktuSekarang->toTimeString();
             $absensi->save();
 
-            return redirect()->back()->with('success', 'Anda telah berhasil melakukan absen keluar!');
+            return redirect()->back()->with('success');
         }
 
         return redirect()->route('login')->with('error', 'Silakan login terlebih dahulu.');

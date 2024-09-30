@@ -75,12 +75,17 @@
         color: black;
     }
 </style>
-
 <div class="container">
     <h2>Daftar Pengajuan Cuti</h2>
-
     <!-- Tampilkan nama pengguna yang sedang login di kiri -->
     <div class="user-name">Selamat datang, {{ Auth::user()->name }}</div>
+
+    <!-- Form pencarian berdasarkan tanggal mulai -->
+    <form action="{{ route('cuti.index') }}" method="GET" class="mb-4">
+        <label for="tanggal_mulai">Cari berdasarkan Tanggal Mulai:</label>
+        <input type="date" name="tanggal_mulai" id="tanggal_mulai" class="form-control" value="{{ request('tanggal_mulai') }}">
+        <button type="submit" class="btn btn-primary mt-2">Cari</button>
+    </form>
 
     @if (session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>

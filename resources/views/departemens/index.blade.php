@@ -1,11 +1,10 @@
 @extends('patrial.template')
 
 @section('content')
-<div class="container">        
+<div class="container">      
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
-
     <div class="mb-3">
         <a href="{{ route('departemens.create') }}" class="btn btn-primary btn-action">
             <i class="fas fa-plus"></i> Buat Data Departemen
