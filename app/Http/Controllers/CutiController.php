@@ -10,8 +10,9 @@ class CutiController extends Controller
 {
     public function userIndex()
     {
-        // Ambil data cuti untuk user yang sedang login berdasarkan UserID
         $cutis = Cuti::where('UserID', auth()->user()->UserID)->get();
+        $cutis = Cuti::orderBy('created_at', 'desc')->paginate(10);
+      
         return view('cuti.index', compact('cutis'));
     }
     
@@ -58,7 +59,7 @@ return redirect()->route('cuti.index')->with('success', 'Pengajuan cuti berhasil
                         $query->where('name', 'like', '%' . $search . '%');
                     });
                 })
-                ->get();
+                ->orderBy('created_at', 'desc')->paginate(10);
 
     // Return view ke admin.cuti.index dengan data cuti
     return view('admin.cuti.index', compact('cutis'));

@@ -60,8 +60,12 @@
             </tbody>
         </table>
     </div>
-
-    {{ $jabatans->links() }}
+<div class="mt-3 d-flex justify-content-between align-items-center">
+    <div>
+        {{ $jabatans->links('pagination::bootstrap-4') }} <!-- Memastikan pagination menggunakan Bootstrap -->
+    </div>
+        <p class="mt-2">Menampilkan {{ $jabatans->count() }} dari {{ $jabatans->total() }} data Jabatan.</p>
+    </div>
 </div>
 
 <style>

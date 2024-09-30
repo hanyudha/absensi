@@ -14,7 +14,7 @@
 
     <form action="{{ route('gajis.index') }}" method="GET" class="mb-3">
         <div class="input-group">
-            <input type="text" name="search" class="form-control" placeholder="Cari gaji" value="{{ request('search') }}">
+            <input type="text" name="search" class="form-control" placeholder="Cari Data Gaji" value="{{ request('search') }}">
             <div class="input-group-append">
                 <button class="btn btn-outline-secondary" type="submit">
                     <i class="fas fa-search"></i> Cari
@@ -36,38 +36,41 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse($gajis as $gaji)
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $gaji->user ? $gaji->user->name : '' }}</td>
-                        <td>{{ $gaji->No_Rekening }}</td>
-                        <td>{{ $gaji->Npwp }}</td>
-                        <td>{{ $gaji->Nominal }}</td>
-                        <td>
-                            <a href="{{ route('gajis.edit', $gaji->GajiID) }}" class="btn btn-sm btn-primary" title="Edit">
-                                <i class="fas fa-edit"></i> Edit
-                            </a>
-                            <a href="{{ route('gajis.show', $gaji->GajiID) }}" class="btn btn-sm" title="Lihat" style="background-color: #89CFF0; color: #fff;">
-                                <i class="fas fa-eye"></i> Lihat
-                            </a>
-                            <form action="{{ route('gajis.destroy', $gaji->GajiID) }}" method="POST" class="d-inline">
-                                {{ csrf_field() }}
-                                <input type="hidden" name="_method" value="delete" />
-                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin ingin menghapusnya?')" title="Hapus">
-                                    <i class="fas fa-trash"></i> Hapus
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="6" class="text-center">Tidak Ada Data Gaji</td>
-                    </tr>
-                @endforelse
-            </tbody>
-        </table>
-    </div>
-
-    {{ $gajis->appends(request()->except('page'))->links() }}
+    @forelse($gajis as $gaji)
+        <tr>
+            <td>{{ $loop->iteration + ($gajis->currentPage() - 1) * $gajis->perPage() }}</td>
+            <td>{{ $gaji->user ? $gaji->user->name : 'Tidak ada' }}</td>
+            <td>{{ $gaji->No_Rekening }}</td>
+            <td>{{ $gaji->Npwp }}</td>
+            <td>{{ number_format($gaji->Nominal, 2, ',', '.') }}</td>
+            <td>
+                <a href="{{ route('gajis.edit', $gaji->GajiID) }}" class="btn btn-sm btn-primary" title="Edit">
+                    <i class="fas fa-edit"></i> Edit
+                </a>
+                <a href="{{ route('gajis.show', $gaji->GajiID) }}" class="btn btn-sm" title="Lihat" style="background-color: #89CFF0; color: #fff;">
+                    <i class="fas fa-eye"></i> Lihat
+                </a>
+                <form action="{{ route('gajis.destroy', $gaji->GajiID) }}" method="POST" class="d-inline">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah anda yakin ingin menghapusnya?')" title="Hapus">
+                        <i class="fas fa-trash"></i> Hapus
+                    </button>
+                </form>
+            </td>
+        </tr>
+    @empty
+        <tr>
+            <td colspan="6" class="text-center">Tidak Ada Data Gaji</td>
+        </tr>
+    @endforelse
+</tbody>
+</table>
 </div>
+    <div class="mt-3 d-flex justify-content-between align-items-center">
+        <div>
+            {{ $gajis->links('pagination::bootstrap-4') }} <!-- Memastikan pagination menggunakan Bootstrap -->
+        </div>
+        <p class="mt-2">Menampilkan {{ $gajis->count() }} dari {{ $gajis->total() }} data Gaji.</p>
+    </div>
 @endsection

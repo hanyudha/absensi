@@ -58,8 +58,12 @@
             </tbody>
         </table>
     </div>
-
-    {{ $departemens->appends(request()->except('page'))->links() }}
+    <div class="mt-3 d-flex justify-content-between align-items-center">
+        <div>
+            {{ $departemens->links('pagination::bootstrap-4') }} <!-- Memastikan pagination menggunakan Bootstrap -->
+        </div>
+        <p class="mt-2">Menampilkan {{ $departemens->count() }} dari {{ $departemens->total() }} data Departemen.</p>
+    </div>
 </div>
 
 <style>
