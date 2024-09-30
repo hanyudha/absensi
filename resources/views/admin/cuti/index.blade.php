@@ -126,7 +126,7 @@
 
 <div class="container">
     <h2>Daftar Pengajuan Cuti</h2>
-    <p>&nbsp;</P>
+    <p>&nbsp;</p>
     <!-- Form Pencarian -->
     <div class="form-search">
         <form action="{{ route('admin.cuti.index') }}" method="GET">
@@ -152,47 +152,58 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($cutis as $index => $cuti)
-            <tr>
-                <td>{{ $index + 1 }}</td>
-                <td>{{ $cuti->user->name }}</td>
-                <td>{{ $cuti->tanggal_mulai }}</td>
-                <td>{{ $cuti->tanggal_selesai }}</td>
-                <td>
-                    @if($cuti->status == 'pending')
-                        <span class="badge bg-warning">Pending</span>
-                    @elseif($cuti->status == 'approved')
-                        <span class="badge bg-success">Disetujui</span>
-                    @elseif($cuti->status == 'rejected')
-                        <span class="badge bg-danger">Ditolak</span>
-                    @endif
-                </td>
-                <td>{{ $cuti->alasan }}</td>
-                <td>
-                    @if($cuti->status == 'pending')
-                        <form action="{{ route('admin.cuti.updateStatus', ['id' => $cuti->id, 'status' => 'approved']) }}" method="POST" style="display:inline;">
-                            @csrf
-                            @method('PUT')
-                            <button type="submit" class="btn btn-custom-success">Setujui</button>
-                        </form>
-                        <form action="{{ route('admin.cuti.updateStatus', ['id' => $cuti->id, 'status' => 'rejected']) }}" method="POST" style="display:inline;">
-                            @csrf
-                            @method('PUT')
-                            <button type="submit" class="btn btn-danger">Tolak</button>
-                        </form>
-                    @else
-                        <a href="{{ route('admin.cuti.show', ['id' => $cuti->id]) }}" class="btn btn-info">Detail</a>
-                    @endif
-                </td>
-            </tr>
-            @endforeach
-        </tbody>
+    @if ($cutis->isEmpty())
+        <tr>
+            <td colspan="7" class="text-center">Tidak ada pengajuan</td>
+        </tr>
+        <tr>
+            <td colspan="7" class="text-center">Silakan tambahkan pengajuan cuti baru.</td>
+        </tr>
+    @else
+        @foreach ($cutis as $index => $cuti)
+        <tr>
+            <td>{{ $index + 1 }}</td>
+            <td>{{ $cuti->user->name }}</td>
+            <td>{{ $cuti->tanggal_mulai }}</td>
+            <td>{{ $cuti->tanggal_selesai }}</td>
+            <td>
+                @if($cuti->status == 'pending')
+                    <span class="badge bg-warning">Pending</span>
+                @elseif($cuti->status == 'approved')
+                    <span class="badge bg-success">Disetujui</span>
+                @elseif($cuti->status == 'rejected')
+                    <span class="badge bg-danger">Ditolak</span>
+                @endif
+            </td>
+            <td>{{ $cuti->alasan }}</td>
+            <td>
+                @if($cuti->status == 'pending')
+                    <form action="{{ route('admin.cuti.updateStatus', ['id' => $cuti->id, 'status' => 'approved']) }}" method="POST" style="display:inline;">
+                        @csrf
+                        @method('PUT')
+                        <button type="submit" class="btn btn-custom-success">Setujui</button>
+                    </form>
+                    <form action="{{ route('admin.cuti.updateStatus', ['id' => $cuti->id, 'status' => 'rejected']) }}" method="POST" style="display:inline;">
+                        @csrf
+                        @method('PUT')
+                        <button type="submit" class="btn btn-danger">Tolak</button>
+                    </form>
+                @else
+                    <i>Tidak Ada Pengajuan</i>
+                @endif
+            </td>
+        </tr>
+        @endforeach
+    @endif
+</tbody>
+
+
     </table>
 </div>
 <div class="mt-3 d-flex justify-content-between align-items-center">
-        <div>
-            {{ $cutis->links('pagination::bootstrap-4') }} <!-- Memastikan pagination menggunakan Bootstrap -->
-        </div>
-        <p class="mt-2">Menampilkan {{ $cutis->count() }} dari {{ $cutis->total() }} data Pengajuan Cuti.</p>
+    <div>
+        {{ $cutis->links('pagination::bootstrap-4') }} <!-- Memastikan pagination menggunakan Bootstrap -->
     </div>
+    <p class="mt-2">Menampilkan {{ $cutis->count() }} dari {{ $cutis->total() }} data Pengajuan Cuti.</p>
+</div>
 @endsection
